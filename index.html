@@ -27,12 +27,13 @@
     </div>
     
     <script>
+      
+
         const params=new URL(window.location.href)
 
         var txt=params.searchParams.get("query")
         document.getElementById("read").value=txt?decodeURIComponent(txt):''
-
-
+        
         if ('speechSynthesis' in window) {
     // Speech Synthesis supported 🎉
     }else{
@@ -73,14 +74,13 @@
             const urlParams = new URLSearchParams(window.location.search);
 
     urlParams.set('query', window.encodeURI( s));
-
+    document.getElementById('url').value=window.location.origin+window.location.pathname+'?'+urlParams
     //window.location.search = urlParams;
-    document.getElementById('url').value= window.location.href+'?'+urlParams
-    navigator.clipboard.writeText(window.location.href+'?'+urlParams)
-    if(getOS()!='Android' || getOS()!='iOS')
-    alert("Copied to clipboard!")
+    
+    navigator.clipboard.writeText(window.location.origin+window.location.pathname+'?'+urlParams)
+    
         }
-
+        
 
     </script>
 
