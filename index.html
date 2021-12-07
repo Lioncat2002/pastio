@@ -17,14 +17,22 @@
        
         <div class="card-content">
             <button onclick="read()" class="waves-effect waves-light btn">Read</button>
+            <button onclick="share()" class="waves-effect waves-light btn">Share</button>
+          
             <div class="card-title">
                Story
             </div>
-            <textarea class="flow-text" style="min-height: 100vh;" name="Reading area" id="read" cols="30" rows="10"></textarea>
+            <textarea placeholder="Type something..." class="flow-text" style="min-height: 100vh;" name="Reading area" id="read" cols="30" rows="10"></textarea>
         </div>
     </div>
     
     <script>
+        const params=new URL(window.location.href)
+
+        var txt=params.searchParams.get("query")
+        document.getElementById("read").value=txt?decodeURIComponent(txt):''
+
+
         if ('speechSynthesis' in window) {
     // Speech Synthesis supported 🎉
     }else{
@@ -38,7 +46,17 @@
 
         }
 
-        
+        function share(){
+            var s=document.getElementById("read").value
+            const urlParams = new URLSearchParams(window.location.search);
+
+    urlParams.set('query', window.encodeURI( s));
+
+    //window.location.search = urlParams;
+    console.log(window.location.href+'?'+urlParams)
+    navigator.clipboard.writeText(window.location.href+'?'+urlParams)
+    alert("Copied to clipboard!")
+        }
     </script>
 
 
